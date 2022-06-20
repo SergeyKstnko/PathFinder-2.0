@@ -13,7 +13,7 @@ class Canvas:
         self.canvas = self.initialize_canvas()
         self.start_tile = self.canvas[ROWS//2-1][COLS//2-COLS//4]
         self.target_tile = self.canvas[ROWS//2-1][COLS//2+COLS//4]
-        #self.set_start_target()
+        
 
     def initialize_canvas(self) -> list:
         canvas = []
@@ -22,6 +22,7 @@ class Canvas:
             for col in range(COLS):
                 canvas[row].append(Tile(row,col))
         
+        self.set_start_target()
         return canvas
 
     def set_start_target(self) -> None:

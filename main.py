@@ -24,49 +24,34 @@ def get_tile_coords(pos):
 def main():
     clock = pygame.time.Clock()
     run = True
+    canvas = Canvas()
     
     while run:
 
         clock.tick(FPS)
         game_window.fill(WHITE)
-        canvas = Canvas()
+        
 
         
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
-            canvas.set_start_target()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    row, col = get_tile_coords(event.pos)
-                    print(row,col, "LEFT")
-                    tile = canvas.canvas[row][col]
-                    tile.color = PURPLE
-                elif event.button == 3:
-                    print("RIGHT")
-
             
-            '''if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 #these two if statements check if mouse click is within canvas boundaries
                 if event.pos[0] > INDENT and event.pos[0] < WIDTH - INDENT:
                     if event.pos[1] > HEADER_HEIGHT and event.pos[1] < HEADER_HEIGHT+ROWS*TILE_SIZE:
                         row, col = get_tile_coords(event.pos)
                         if pygame.mouse.get_pressed()[0]: #left
-                            #canvas.make_tile(row, col)
-                            canvas.set_target()
-                            canvas.make_start_tile(row, col)
-                            print(row,col, "LEFT")
+                            canvas.make_tile(row, col)
                         elif pygame.mouse.get_pressed()[2]: #right
-                            print(row,col, "RIGHT")
-                            #canvas.reset_tile(row, col)
+                            canvas.reset_tile(row, col)
 
                         #if right mouse buttong is clicked on the start or end node
                             #remove it
                             #place it where user will press left mouse        
-            '''
+            
 
         canvas.draw_canvas(game_window)
         pygame.display.update()

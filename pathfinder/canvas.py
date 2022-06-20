@@ -10,9 +10,10 @@ from .tile import Tile
 
 class Canvas:
     def __init__(self):
+        self.start_tile = None
+        self.target_tile = None
         self.canvas = self.initialize_canvas()
-        self.start_tile = self.canvas[ROWS//2-1][COLS//2-COLS//4]
-        self.target_tile = self.canvas[ROWS//2-1][COLS//2+COLS//4]
+        
         
 
     def initialize_canvas(self) -> list:
@@ -21,16 +22,42 @@ class Canvas:
             canvas.append([])
             for col in range(COLS):
                 canvas[row].append(Tile(row,col))
+
+        self.start_tile = canvas[ROWS//2-1][COLS//2-COLS//4]
+        self.target_tile = canvas[ROWS//2-1][COLS//2+COLS//4]
+        self.start_tile.make_start()
+        self.target_tile.make_target()
         
-        self.set_start_target()
         return canvas
 
-    def set_start_target(self) -> None:
-        #set as start tile
-        self.start_tile.make_start()
-        #set as target tile
-        self.target_tile.make_target()
+
+    def is_there_start(self):
+        return self.start_tile != None
+
+    def is_there_target(self):
+        return self.target_tile != None
     
+    def make_tile(self, row, col):
+        tile = self.canvas[row][col]
+        #if there is no start
+        if not self.is_there_start():
+            self.start_tile = tile
+            tile.make_start()
+        elif not self.is_there_target():
+            self.target_tile = tile
+            tile.make_target()
+        elif not tile.is_target() and not tile.is_start():
+            tile.make_wall()
+    
+    def reset_tile(self, row, col):
+        tile = self.canvas[row][col]
+        if tile.is_start():
+            self.start_tile = None
+        elif tile.is_target():
+            self.target_tile = None
+        tile.make_unvisited()
+
+
     def set_target(self):
         tile = self.canvas[1][22]
         tile.make_start()

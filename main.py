@@ -32,8 +32,6 @@ def main():
         game_window.fill(WHITE)
         
 
-        
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False

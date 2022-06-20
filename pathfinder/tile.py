@@ -1,6 +1,5 @@
-from pathfinder.constants import WHITE
 
-from .constants import DARK_PURPLE, PURPLE, WHITE
+from .constants import BLACK, DARK_PURPLE, PURPLE, WHITE
 
 class Tile:
     
@@ -9,11 +8,27 @@ class Tile:
         self.col = col
         self.color = WHITE
 
-    def is_start_tile(self) -> bool:
+    def is_start(self) -> bool:
         return self.color == PURPLE
 
-    def is_target_tile(self) -> bool:
+    def is_target(self) -> bool:
         return self.color == DARK_PURPLE
+
+    def is_wall(self):
+        return self.color == BLACK
+
+    def make_start(self):
+        self.color = PURPLE
+    
+    def make_target(self):
+        self.color = DARK_PURPLE
+
+    def make_wall(self):
+        self.color = BLACK
+
+    def make_unvisited(self):
+        print("HERE")
+        self.color = WHITE
     
     #when not is unvisited
         #its color = white

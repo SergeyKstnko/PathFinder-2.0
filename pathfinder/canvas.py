@@ -49,7 +49,6 @@ class Canvas:
             tile.make_target()
         elif not tile.is_target() and not tile.is_start():
             tile.make_wall()
-        print(self.start_tile.get_row_col())
     
     def reset_tile(self, row, col):
         tile = self.canvas[row][col]

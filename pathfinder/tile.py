@@ -1,5 +1,5 @@
 
-from .constants import BLACK, DARK_PURPLE, PURPLE, WHITE
+from .constants import BLACK, BLUE, DARK_BLUE, DARK_PURPLE, PURPLE, WHITE, YELLOW
 
 class Tile:
     
@@ -7,15 +7,8 @@ class Tile:
         self.row = row
         self.col = col
         self.color = WHITE
-
-    def is_start(self) -> bool:
-        return self.color == PURPLE
-
-    def is_target(self) -> bool:
-        return self.color == DARK_PURPLE
-
-    def is_wall(self):
-        return self.color == BLACK
+        self.neighbours = []
+        self.parent = None
 
     def make_start(self):
         self.color = PURPLE
@@ -26,9 +19,41 @@ class Tile:
     def make_wall(self):
         self.color = BLACK
 
-    def make_unvisited(self):
-        print("HERE")
+    def get_row_col(self):
+        return self.row, self.col
+
+    def get_parent(self):
+        return self.parent
+
+    def set_unvisited(self):
         self.color = WHITE
+
+    def set_discovered(self):
+        self.color = DARK_BLUE
+
+    def set_parent(self, parent):
+        self.parent = parent
+
+    def set_processed(self):
+        self.color = BLUE
+
+    def set_shortest(self):
+        self.color = YELLOW
+
+    def is_start(self) -> bool:
+        return self.color == PURPLE
+
+    def is_target(self) -> bool:
+        return self.color == DARK_PURPLE
+
+    def is_wall(self) -> bool:
+        return self.color == BLACK
+
+    def is_discovered(self) -> bool:
+        return self.color == DARK_BLUE or self.color == BLUE
+
+
+
     
     #when not is unvisited
         #its color = white

@@ -5,8 +5,9 @@
 '''
 
 import pygame
-from pathfinder.constants import BOTTOM_INDENT, CANVAS_HEIGHT, CANVAS_WIDTH, COLS, DARK_BLUE, HEADER_HEIGHT, INDENT, PURPLE, ROWS, TILE_SIZE, WIDTH, HEIGHT, WHITE, YELLOW
+from pathfinder.constants import HEADER_HEIGHT, INDENT, ROWS, TILE_SIZE, WIDTH, HEIGHT, WHITE
 from pathfinder.canvas import Canvas
+from pathfinder.dfs import Dfs
 
 
 FPS = 60
@@ -31,7 +32,6 @@ def main():
         clock.tick(FPS)
         game_window.fill(WHITE)
         
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -46,13 +46,15 @@ def main():
                         elif pygame.mouse.get_pressed()[2]: #right
                             canvas.reset_tile(row, col)
 
-                        #if right mouse buttong is clicked on the start or end node
-                            #remove it
-                            #place it where user will press left mouse        
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and canvas.get_target() and canvas.get_start():
+                    alg = Dfs(canvas)
+                    alg.run(game_window)
+                    canvas.draw_shortest_path(game_window)
             
 
         canvas.draw_canvas(game_window)
-        pygame.display.update()
+        
          
     pygame.quit()
 

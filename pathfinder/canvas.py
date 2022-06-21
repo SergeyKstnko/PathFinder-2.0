@@ -13,9 +13,8 @@ class Canvas:
         self.start_tile = None
         self.target_tile = None
         self.canvas = self.initialize_canvas()
-        
-        
 
+        
     def initialize_canvas(self) -> list:
         canvas = []
         for row in range(ROWS):
@@ -29,25 +28,28 @@ class Canvas:
         self.target_tile.make_target()
         
         return canvas
-
-
-    def is_there_start(self):
-        return self.start_tile != None
-
-    def is_there_target(self):
-        return self.target_tile != None
     
+    def get_start(self):
+        return self.start_tile
+
+    def get_target(self):
+        return self.target_tile
+
+    def get_canvas(self):
+        return self.canvas
+
     def make_tile(self, row, col):
         tile = self.canvas[row][col]
         #if there is no start
-        if not self.is_there_start():
+        if not self.get_start():
             self.start_tile = tile
             tile.make_start()
-        elif not self.is_there_target():
+        elif not self.get_target():
             self.target_tile = tile
             tile.make_target()
         elif not tile.is_target() and not tile.is_start():
             tile.make_wall()
+        print(self.start_tile.get_row_col())
     
     def reset_tile(self, row, col):
         tile = self.canvas[row][col]
@@ -55,7 +57,7 @@ class Canvas:
             self.start_tile = None
         elif tile.is_target():
             self.target_tile = None
-        tile.make_unvisited()
+        tile.set_unvisited()
 
 
     def set_target(self):
@@ -65,6 +67,16 @@ class Canvas:
     def make_start_tile(self, row, col):
         tile = self.canvas[row][col]
         tile.make_start()
+
+
+    def draw_shortest_path(self, game_window):
+        curr = self.target_tile.get_parent()
+
+        while curr and not curr.is_start():
+            curr.set_shortest()
+            curr = curr.get_parent()
+            self.draw_canvas(game_window)
+
 
     def draw_tiles(self, game_window):
         for row in range(ROWS):
@@ -90,4 +102,6 @@ class Canvas:
     def draw_canvas(self, game_window):
         self.draw_tiles(game_window)
         self.draw_grid(game_window)
+
+        pygame.display.update()
         

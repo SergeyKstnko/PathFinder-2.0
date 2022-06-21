@@ -1,6 +1,10 @@
 '''
 @TODO:
-- make grid color more faint. Probably by drawing lines instead of squares
+- Make colors of the game better
+- Add choice of algorithms:
+-- Dijkstra
+-- A*
+-- Maze creation algorithnm
 '''
 
 import pygame
@@ -14,7 +18,6 @@ class Canvas:
         self.target_tile = None
         self.canvas = self.initialize_canvas()
 
-        
     def initialize_canvas(self) -> list:
         canvas = []
         for row in range(ROWS):

@@ -8,7 +8,7 @@
 '''
 
 import pygame
-from pathfinder.constants import BLACK, DARK_PURPLE, PURPLE, SKYBLUE, COLS, ROWS, TILE_SIZE, CANVAS_XY
+from pathfinder.constants import BLACK, DARK_PURPLE, HEADER, INDENT, PURPLE, SKYBLUE, COLS, ROWS, TILE_SIZE, CANVAS_XY, WHITE, WIDTH
 from .tile import Tile
 
 
@@ -17,6 +17,7 @@ class Canvas:
         self.start_tile = None
         self.target_tile = None
         self.canvas = self.initialize_canvas()
+        self.alg = None
 
     def initialize_canvas(self) -> list:
         canvas = []
@@ -48,6 +49,12 @@ class Canvas:
                     tile.append_neighbours(canvas[row][col-1])
                 if col+1 < ncols: #RIGHT
                     tile.append_neighbours(canvas[row][col+1])
+
+    def set_alg(self, alg):
+        self.alg = alg
+
+    def run_alg(self, game_window, canvas):
+        self.alg.run(game_window, canvas)
 
     def reset_canvas(self):
         self.canvas = self.initialize_canvas()
@@ -121,9 +128,20 @@ class Canvas:
                 rect = pygame.Rect(next_tile_x, next_tile_y ,TILE_SIZE, TILE_SIZE)
                 pygame.draw.rect(game_window, SKYBLUE, rect, 1)
     
+    def draw_header(self, game_window):
+        rect = pygame.Rect(INDENT, INDENT, WIDTH-INDENT*2, 75)
+        pygame.draw.rect(game_window, HEADER, rect, 0)
+        
+        font_header = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 30)
+        txt = "Pathfinding Algorithms Visualizer"
+        txt_surface = font_header.render(txt, True, WHITE) 
+        game_window.blit(txt_surface, (WIDTH/2-len(txt)//2*16, 22))
+
+
     def draw_canvas(self, game_window):
         self.draw_tiles(game_window)
         self.draw_grid(game_window)
+        self.draw_header(game_window)
 
         pygame.display.update()
         

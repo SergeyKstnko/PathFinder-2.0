@@ -28,7 +28,7 @@ def main():
     clock = pygame.time.Clock()
     run = True
     canvas = Canvas()
-    alg = Dfs()
+    canvas.set_alg(Dfs())
     
     while run:
         
@@ -52,19 +52,22 @@ def main():
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:
-                    alg = Dfs()
+                    canvas.set_alg(Dfs())
                 elif event.key == pygame.K_2:
-                    alg = Dijkstra(canvas)
+                    canvas.set_alg(Dijkstra(canvas))
+                    #alg = Dijkstra(canvas)
                 elif event.key == pygame.K_SPACE and canvas.get_target() and canvas.get_start():
-                    alg.run(game_window, canvas)
+                    canvas.run_alg(game_window, canvas)
                     canvas.draw_shortest_path(game_window)
                 elif event.key == pygame.K_r:
                     canvas.reset_canvas()
-                    alg = Dfs()
+                    canvas.set_alg(Dfs())
                 
 
 
         canvas.draw_canvas(game_window)
+
+        pygame.display.update()
 
     pygame.quit()
 

@@ -8,6 +8,7 @@ import pygame
 from pathfinder.constants import HEADER_HEIGHT, INDENT, ROWS, TILE_SIZE, WIDTH, HEIGHT, WHITE
 from pathfinder.canvas import Canvas
 from pathfinder.dfs import Dfs
+from pathfinder.dijkstra import Dijkstra
 
 
 FPS = 60
@@ -22,13 +23,15 @@ def get_tile_coords(pos):
     row = (pos[1] - HEADER_HEIGHT) // TILE_SIZE
     return row, col
 
+
 def main():
     clock = pygame.time.Clock()
     run = True
     canvas = Canvas()
+    alg = Dfs()
     
     while run:
-
+        
         clock.tick(FPS)
         game_window.fill(WHITE)
         
@@ -45,17 +48,24 @@ def main():
                             canvas.make_tile(row, col)
                         elif pygame.mouse.get_pressed()[2]: #right
                             canvas.reset_tile(row, col)
+                            
 
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and canvas.get_target() and canvas.get_start():
-                    alg = Dfs(canvas)
-                    alg.run(game_window)
+                if event.key == pygame.K_1:
+                    alg = Dfs()
+                elif event.key == pygame.K_2:
+                    alg = Dijkstra(canvas)
+                elif event.key == pygame.K_SPACE and canvas.get_target() and canvas.get_start():
+                    alg.run(game_window, canvas)
                     canvas.draw_shortest_path(game_window)
-            
+                elif event.key == pygame.K_r:
+                    canvas.reset_canvas()
+                    alg = Dfs()
+                
+
 
         canvas.draw_canvas(game_window)
-        
-         
+
     pygame.quit()
 
 main()

@@ -29,9 +29,29 @@ class Canvas:
         self.target_tile = canvas[ROWS//2-1][COLS//2+COLS//4]
         self.start_tile.make_start()
         self.target_tile.make_target()
+        self.update_neighbours(canvas)
         
         return canvas
-    
+
+    def update_neighbours(self, canvas):
+        for row in canvas:
+            for tile in row:
+                nrows = len(canvas)
+                ncols = len(canvas[0])
+                row, col = tile.get_row_col()
+
+                if row-1 >= 0: #UPPER
+                    tile.append_neighbours(canvas[row-1][col])
+                if row+1 < nrows: #LOWER
+                    tile.append_neighbours(canvas[row+1][col])
+                if col-1 >= 0: #LEFT
+                    tile.append_neighbours(canvas[row][col-1])
+                if col+1 < ncols: #RIGHT
+                    tile.append_neighbours(canvas[row][col+1])
+
+    def reset_canvas(self):
+        self.canvas = self.initialize_canvas()
+
     def get_start(self):
         return self.start_tile
 

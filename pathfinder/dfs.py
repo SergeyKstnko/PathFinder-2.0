@@ -8,11 +8,11 @@ dfs.py implements Depth Search Algorithm
 from .constants import COLS, ROWS
 
 class Dfs:
-    def __init__(self, canvas):
-        self.object = canvas
-        self.canvas = canvas.get_canvas()
-        self.start = canvas.get_start()
-        self.target = canvas.get_target()
+    def __init__(self):
+        self.object = None
+        self.canvas = None
+        self.start = None
+        self.target = None
         self.found = False
 
     def dfs(self, row, col, parent, game_window):
@@ -42,9 +42,14 @@ class Dfs:
         #mark current node as processed
         if not curr.is_start():
             curr.set_processed()
-
         self.object.draw_canvas(game_window)
 
-    def run(self, game_window):
+    def run(self, game_window, canvas):
+        self.object = canvas
+        self.canvas = canvas.get_canvas()
+        self.start = canvas.get_start()
+        self.target = canvas.get_target()
+        self.found = False
+
         row, col = self.start.get_row_col()
         self.dfs(row, col, None, game_window)

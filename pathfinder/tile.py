@@ -1,5 +1,6 @@
 
 from .constants import BLACK, BLUE, DARK_BLUE, DARK_PURPLE, PURPLE, WHITE, YELLOW
+import math
 
 class Tile:
     
@@ -7,8 +8,16 @@ class Tile:
         self.row = row
         self.col = col
         self.color = WHITE
-        self.neighbours = []
         self.parent = None
+
+        #fields for Dijkstra
+        self.neighbours = []
+        self.intree = False
+        self.weight = 1
+        self.distance = math.inf #SHORTEST DISTANCE
+        
+    def append_neighbours(self, neighbour):
+        self.neighbours.append(neighbour)
 
     def make_start(self):
         self.color = PURPLE
@@ -22,8 +31,23 @@ class Tile:
     def get_row_col(self):
         return self.row, self.col
 
+    def get_neighbours(self):
+        return self.neighbours
+    
+    def get_weight(self):
+        return self.weight
+
+    def get_distance(self):
+        return self.distance
+
     def get_parent(self):
         return self.parent
+    
+    def set_intree(self):
+        self.intree = True
+
+    def set_distance(self, dist):
+        self.distance = dist
 
     def set_unvisited(self):
         self.color = WHITE
@@ -39,6 +63,9 @@ class Tile:
 
     def set_shortest(self):
         self.color = YELLOW
+
+    def is_intree(self):
+        return self.intree == True
 
     def is_start(self) -> bool:
         return self.color == PURPLE

@@ -29,14 +29,34 @@ This application is my second take on Pathfinding Algorithm Visualizer. It visua
 * Add notification when algorithm did not find any path
 * Solve an issue when running algorithm letters become a little blurry
 
+
 ![Dijkstra 1](https://user-images.githubusercontent.com/7826894/175387207-e422efc5-bcea-4316-afd7-cf19e58c08c7.png)
+
+Dijkstra Algorithm is searching for the target node [picture above]
+
 ![Dijkstra 2](https://user-images.githubusercontent.com/7826894/175387218-d26b184e-79a2-4784-a993-8d25686a662c.png)
+
+Dijkstra Algorithm is searching for the target node [picture above]
+
 ![Dijkstra Found](https://user-images.githubusercontent.com/7826894/175387226-9b59ea50-6b77-4392-a1b4-692671187de6.png)
 
+Dikstra found the shortest path [picture above]
+
 ![DFS 1](https://user-images.githubusercontent.com/7826894/175387242-f2d434b4-fc74-4875-b682-cc038bb1d452.png)
+
+Right before running Depth-first Search Algorithm [picture above]
+
 ![DFS 2](https://user-images.githubusercontent.com/7826894/175387257-ea3d454e-7013-4868-9bdb-b943faaea141.png)
+
+Depth-first Search is looking for the target node [picture above]
+
 ![DFS 3](https://user-images.githubusercontent.com/7826894/175387262-8233124b-904f-4c82-be3d-30c7c6c6e43f.png)
+
+Depth-first Search is looking for the target node [picture above]
+
 ![DFS Found](https://user-images.githubusercontent.com/7826894/175387269-3ea6ebb5-ddc2-4b9d-8b57-1fc893f92c10.png)
+
+Depth-first Search found the path between two nodes(it does not guarantee the path is the shortest) [picture above]
 
 
 

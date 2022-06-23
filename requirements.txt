@@ -1,5 +1,3 @@
-### Requirements
-
 pygame
 python3
 

@@ -6,7 +6,7 @@
 '''
 
 import pygame
-from pathfinder.constants import BLACK, DARK_PURPLE, HEADER, INDENT, PURPLE, SKYBLUE, COLS, ROWS, TILE_SIZE, CANVAS_XY, WHITE, WIDTH, PROMPT_CORAL
+from pathfinder.constants import BLACK, BLUE, BOTTOM_INDENT, DARK_BLUE, DARK_PURPLE, HEADER, HEIGHT, INDENT, PURPLE, SKYBLUE, COLS, ROWS, TILE_SIZE, CANVAS_XY, WHITE, WIDTH, PROMPT_CORAL, YELLOW
 from .tile import Tile
 
 
@@ -166,11 +166,85 @@ class Canvas:
         txt_surface = font_prompt.render(txt, True, self.status_col) 
         game_window.blit(txt_surface, (WIDTH//2+pos*9, 92))
 
+    def draw_legend(self, game_window):
+        legend_x = INDENT
+        legend_y = HEIGHT-BOTTOM_INDENT+20
+
+        #START NODE
+        rect = pygame.Rect(legend_x+7, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, PURPLE, rect, 0)
+        rect = pygame.Rect(legend_x+7, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, SKYBLUE, rect, 1)
+
+        font_legend = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 16)
+        txt = "- Start Node"
+        txt_surface = font_legend.render(txt, True, HEADER) 
+        game_window.blit(txt_surface, (legend_x+34, legend_y-2))
+
+        #TARGET NODE
+        rect = pygame.Rect(legend_x+150, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, DARK_PURPLE, rect, 0)
+        rect = pygame.Rect(legend_x+150, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, SKYBLUE, rect, 1)
+
+        txt = "- Target Node"
+        txt_surface = font_legend.render(txt, True, HEADER) 
+        game_window.blit(txt_surface, (legend_x+177, legend_y-2))
+
+        #PATH NODE
+        rect = pygame.Rect(legend_x+312, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, YELLOW, rect, 0)
+        rect = pygame.Rect(legend_x+312, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, SKYBLUE, rect, 1)
+
+        txt = "- Shortest-path Node"
+        txt_surface = font_legend.render(txt, True, HEADER) 
+        game_window.blit(txt_surface, (legend_x+342, legend_y-2))
+
+        #WALL NODE
+        rect = pygame.Rect(legend_x+533, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, BLACK, rect, 0)
+        rect = pygame.Rect(legend_x+533, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, SKYBLUE, rect, 1)
+
+        txt = "- Wall Node"
+        txt_surface = font_legend.render(txt, True, HEADER) 
+        game_window.blit(txt_surface, (legend_x+563, legend_y-2))
+
+        #DISCOVERED/PROCESSED NODE NODE
+        rect = pygame.Rect(legend_x+673, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, DARK_BLUE, rect, 0)
+        rect = pygame.Rect(legend_x+673, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, SKYBLUE, rect, 1)
+
+        rect = pygame.Rect(legend_x+695, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, BLUE, rect, 0)
+        rect = pygame.Rect(legend_x+695, legend_y, TILE_SIZE-4, TILE_SIZE-4)
+        pygame.draw.rect(game_window, SKYBLUE, rect, 1)
+
+        txt = "- Discovered and Processed Nodes"
+        txt_surface = font_legend.render(txt, True, HEADER) 
+        game_window.blit(txt_surface, (legend_x+725, legend_y-2))
+
+        font_legend = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 14)
+        txt = "You can press numbers on your keyboard to choose algorithms: 1. Depth-first Search Algorithm 2. Dijkstra Algorithm."
+        txt_surface = font_legend.render(txt, True, HEADER) 
+        game_window.blit(txt_surface, (legend_x+7, legend_y+30))
+
+        txt = "You can select and deselct squares and build walls with right/left mouse click."
+        txt_surface = font_legend.render(txt, True, HEADER) 
+        game_window.blit(txt_surface, (legend_x+7, legend_y+50))
+
+        txt = "Press \"R\" to reset the canvas."
+        txt_surface = font_legend.render(txt, True, HEADER) 
+        game_window.blit(txt_surface, (legend_x+7, legend_y+70))
+
 
     def draw_canvas(self, game_window):
         self.draw_tiles(game_window)
         self.draw_grid(game_window)
         self.draw_header(game_window)
+        self.draw_legend(game_window)
 
         pygame.display.update()
         

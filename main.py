@@ -1,8 +1,10 @@
 '''GUI for Pathfinding Algorithm visualizer
 
 @TODO:
-- design OOP interface
+- add a legend to the bottom of the screen
 - make readme file
+- No solution -> let user know
+- Prohibit user from modifying after algorithm is finished
 - 
 - show message when algorithm found NO solution
 - make algorithm go faster and slower
@@ -11,7 +13,6 @@
 -- Maze creation algorithnm
 '''
 
-import nntplib
 import pygame
 from pathfinder.constants import COLS, HEADER_HEIGHT, INDENT, ROWS, TILE_SIZE, WIDTH, HEIGHT, WHITE
 from pathfinder.canvas import Canvas
@@ -61,35 +62,12 @@ def main():
                 if event.key == pygame.K_1:
                     canvas.set_alg(Dfs())
                 elif event.key == pygame.K_2:
-                    canvas.set_alg(Dijkstra(canvas))
+                    canvas.set_alg(Dijkstra())
                 elif event.key == pygame.K_r:
                     canvas = Canvas()
                 elif event.key == pygame.K_SPACE and canvas.get_target() and canvas.get_start():
                     canvas.run_alg(game_window, canvas)
                     canvas.draw_shortest_path(game_window)
-
-                elif event.key == pygame.K_0:
-                    canvas.update_neighbours()
-                    nn = canvas.canvas[0][0].get_neighbours()
-                    for n in nn:
-                        n.set_processed()
-                    nn = canvas.canvas[3][3].get_neighbours()
-                    for n in nn:
-                        n.set_processed()
-                    nn = canvas.canvas[ROWS-1][COLS-1].get_neighbours()
-                    for n in nn:
-                        n.set_processed()
-
-                    nn = canvas.canvas[0][COLS-1].get_neighbours()
-                    for n in nn:
-                        n.set_processed()
-                    nn = canvas.canvas[ROWS-1][0].get_neighbours()
-                    for n in nn:
-                        n.set_processed()
-                    nn = canvas.canvas[15][0].get_neighbours()
-                    for n in nn:
-                        n.set_processed()
-
 
 
 

@@ -6,7 +6,7 @@ import math
 from .FormalAlgorithmInterface import FormalAlgorithmInterface
 
 class Dijkstra(FormalAlgorithmInterface):
-    def __init__(self, canvas):
+    def __init__(self):
         self.object = None
         self.canvas = None
         self.start = None

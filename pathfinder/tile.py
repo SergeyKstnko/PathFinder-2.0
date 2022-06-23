@@ -53,16 +53,18 @@ class Tile:
         self.color = WHITE
 
     def set_discovered(self):
-        self.color = DARK_BLUE
-
-    def set_parent(self, parent):
-        self.parent = parent
+        if not self.is_start() and not self.is_target():
+            self.color = DARK_BLUE
 
     def set_processed(self):
-        self.color = BLUE
+        if not self.is_start() and not self.is_target():
+            self.color = BLUE
 
     def set_shortest(self):
         self.color = YELLOW
+
+    def set_parent(self, parent):
+        self.parent = parent
 
     def is_intree(self):
         return self.intree == True

@@ -14,6 +14,10 @@ class Dfs:
         self.start = None
         self.target = None
         self.found = False
+        self.alg_prompt = "Depth-First Search Algorithm, unweighted and does not guearantee shortest path" + "  "
+
+    def get_alg_prompt(self):
+        return self.alg_prompt
 
     def dfs(self, row, col, parent, game_window):
         #if node is outside bounaries or if node is a wall
@@ -33,7 +37,7 @@ class Dfs:
 
         self.object.draw_canvas(game_window)
         #recurse into every neighbour of the node
-
+    
         self.dfs(row-1, col, curr, game_window) #UPPER
         self.dfs(row, col-1, curr, game_window) #LEFT
         self.dfs(row, col+1, curr, game_window) #RIGHT
@@ -42,6 +46,7 @@ class Dfs:
         #mark current node as processed
         if not curr.is_start():
             curr.set_processed()
+            
         self.object.draw_canvas(game_window)
 
     def run(self, game_window, canvas):

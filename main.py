@@ -4,13 +4,16 @@
 - design OOP interface
 - make readme file
 - 
-- algorithm may runs only if start and target tiles are selected
 - show message when algorithm found NO solution
 - make algorithm go faster and slower
+- change color constants names
+-- A*
+-- Maze creation algorithnm
 '''
 
+import nntplib
 import pygame
-from pathfinder.constants import HEADER_HEIGHT, INDENT, ROWS, TILE_SIZE, WIDTH, HEIGHT, WHITE
+from pathfinder.constants import COLS, HEADER_HEIGHT, INDENT, ROWS, TILE_SIZE, WIDTH, HEIGHT, WHITE
 from pathfinder.canvas import Canvas
 from pathfinder.dfs import Dfs
 from pathfinder.dijkstra import Dijkstra
@@ -33,7 +36,6 @@ def main():
     clock = pygame.time.Clock()
     run = True
     canvas = Canvas()
-    canvas.set_alg(Dfs())
     
     while run:
         
@@ -58,15 +60,37 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:
                     canvas.set_alg(Dfs())
-                    canvas.set_alg_prompt("Depth-First Search Algorithm, unweighted and does not guearantee shortest path")
                 elif event.key == pygame.K_2:
                     canvas.set_alg(Dijkstra(canvas))
-                    canvas.set_alg_prompt("Dijkstra Weighted Algorithm, guarantees shortest path")
+                elif event.key == pygame.K_r:
+                    canvas = Canvas()
                 elif event.key == pygame.K_SPACE and canvas.get_target() and canvas.get_start():
                     canvas.run_alg(game_window, canvas)
                     canvas.draw_shortest_path(game_window)
-                elif event.key == pygame.K_r:
-                    canvas = Canvas()
+
+                elif event.key == pygame.K_0:
+                    canvas.update_neighbours()
+                    nn = canvas.canvas[0][0].get_neighbours()
+                    for n in nn:
+                        n.set_processed()
+                    nn = canvas.canvas[3][3].get_neighbours()
+                    for n in nn:
+                        n.set_processed()
+                    nn = canvas.canvas[ROWS-1][COLS-1].get_neighbours()
+                    for n in nn:
+                        n.set_processed()
+
+                    nn = canvas.canvas[0][COLS-1].get_neighbours()
+                    for n in nn:
+                        n.set_processed()
+                    nn = canvas.canvas[ROWS-1][0].get_neighbours()
+                    for n in nn:
+                        n.set_processed()
+                    nn = canvas.canvas[15][0].get_neighbours()
+                    for n in nn:
+                        n.set_processed()
+
+
 
 
         canvas.draw_canvas(game_window)

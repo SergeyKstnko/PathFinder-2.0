@@ -1,8 +1,6 @@
 '''
 @TODO:
-- Make colors of the game better
 - Add choice of algorithms:
--- Dijkstra
 -- A*
 -- Maze creation algorithnm
 '''
@@ -34,43 +32,37 @@ class Canvas:
         self.target_tile = canvas[ROWS//2-1][COLS//2+COLS//4]
         self.start_tile.make_start()
         self.target_tile.make_target()
-        self.update_neighbours(canvas)
         
         return canvas
 
-    def update_neighbours(self, canvas):
+    def update_neighbours(self):
+        canvas = self.canvas
         for row in canvas:
             for tile in row:
                 nrows = len(canvas)
                 ncols = len(canvas[0])
                 row, col = tile.get_row_col()
 
-                if row-1 >= 0: #UPPER
+                if row-1 >= 0 and not canvas[row-1][col].is_wall(): #UPPER
                     tile.append_neighbours(canvas[row-1][col])
-                if row+1 < nrows: #LOWER
+                if row+1 < nrows and not canvas[row+1][col].is_wall(): #LOWER
                     tile.append_neighbours(canvas[row+1][col])
-                if col-1 >= 0: #LEFT
+                if col-1 >= 0 and not canvas[row][col-1].is_wall(): #LEFT
                     tile.append_neighbours(canvas[row][col-1])
-                if col+1 < ncols: #RIGHT
+                if col+1 < ncols and not canvas[row][col+1].is_wall(): #RIGHT
                     tile.append_neighbours(canvas[row][col+1])
+
 
     def set_alg(self, alg):
         self.alg = alg
-
-    def set_alg_prompt(self, str):
-        self.alg_prompt = str
+        self.alg_prompt = alg.get_alg_prompt()
         self.alg_prompt_col = HEADER
 
-    def run_alg(self, game_window, canvas):
-        self.alg.run(game_window, canvas)
 
-    '''def reset_canvas(self):
-        self.canvas = self.initialize_canvas()
-        self.alg_prompt = "Use numbers [1-2] on your keyboard to choose an algorithm and then"    #TOP LEFT PROMPT
-        self.alg_prompt_col = PROMPT_CORAL
-        self.status_prompt = "Press SPACE to run it."    #TOP RIGHT PROMPT
-        self.status_col = PROMPT_CORAL'''
-
+    def run_alg(self, game_window, canvas_object):
+        if self.alg:
+            self.update_neighbours()
+            self.alg.run(game_window, canvas_object)
 
     def get_start(self):
         return self.start_tile
@@ -88,7 +80,7 @@ class Canvas:
             self.start_tile = tile
             tile.make_start()
             if not self.get_target():
-                self.status_prompt = "Pick target node."
+                self.status_prompt = " Pick target node."
 
         elif not self.get_target():
             self.target_tile = tile
@@ -107,7 +99,7 @@ class Canvas:
             if not self.get_start():
                 self.status_prompt = "Pick start node."
             else:
-                self.status_prompt = "Pick target node."
+                self.status_prompt = " Pick target node."
         tile.set_unvisited()
 
 
@@ -162,7 +154,7 @@ class Canvas:
         
         font_prompt = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 15)
         
-        tot_len = len(self.alg_prompt+" "+ self.status_prompt)
+        tot_len = len(self.alg_prompt+""+ self.status_prompt)
         txt = self.alg_prompt.upper()
         #txt = self.alg_prompt+" "+ self.status_prompt.upper()
         txt_surface = font_prompt.render(txt, True, self.alg_prompt_col) 
@@ -172,7 +164,7 @@ class Canvas:
         txt = self.status_prompt.upper()
         pos = tot_len//2 - len(txt) #position where this sign should be
         txt_surface = font_prompt.render(txt, True, self.status_col) 
-        game_window.blit(txt_surface, (WIDTH//2+pos*9+8, 92))
+        game_window.blit(txt_surface, (WIDTH//2+pos*9, 92))
 
 
     def draw_canvas(self, game_window):

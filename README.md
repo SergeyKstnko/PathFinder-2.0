@@ -17,18 +17,17 @@ This application is my second take on Pathfinding Algorithm Visualizer. It visua
 * Fonts work on different operation systems
 
 **GUI Interface:**
-- You can select and deselect start and target nodes
+- You can select and deselect start and target nodes by left/right mouse click
 - You can build and deselect walls by right/left mouse click on unvisited node
 - Select algorithm of your choice by using numbers on your keyboard
 - Press "R" on your keyboard to reset canvas
 
 
 **ToDO:** (in the order of importance and interest):
-* Add at A* algorithm
+* Add A* algorithm
 * Add option to generate mazes (e.g. with Kruskal's Algorithm)
 * Add notification when algorithm did not find any path
 * Solve an issue when running algorithm letters become a little blurry
-
 
 ![Dijkstra 1](https://user-images.githubusercontent.com/7826894/175387207-e422efc5-bcea-4316-afd7-cf19e58c08c7.png)
 ![Dijkstra 2](https://user-images.githubusercontent.com/7826894/175387218-d26b184e-79a2-4784-a993-8d25686a662c.png)

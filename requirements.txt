@@ -1,2 +1,10 @@
+### Requirements
+
 pygame
 python3
+
+
+
+
+
+

@@ -6,8 +6,10 @@ dfs.py implements Depth Search Algorithm
 '''
 
 from .constants import COLS, ROWS
+from .FormalAlgorithmInterface import FormalAlgorithmInterface
 
-class Dfs:
+
+class Dfs(FormalAlgorithmInterface):
     def __init__(self):
         self.object = None
         self.canvas = None

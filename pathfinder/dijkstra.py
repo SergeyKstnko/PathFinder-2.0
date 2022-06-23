@@ -3,8 +3,9 @@ This class implements Dijkstra algorithm
 
 '''
 import math
+from .FormalAlgorithmInterface import FormalAlgorithmInterface
 
-class Dijkstra:
+class Dijkstra(FormalAlgorithmInterface):
     def __init__(self, canvas):
         self.object = None
         self.canvas = None

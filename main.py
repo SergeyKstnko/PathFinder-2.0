@@ -1,7 +1,12 @@
 '''GUI for Pathfinding Algorithm visualizer
 
 @TODO:
-- algorithm may run only if start and target tiles are selected
+- design OOP interface
+- make readme file
+- 
+- algorithm may runs only if start and target tiles are selected
+- show message when algorithm found NO solution
+- make algorithm go faster and slower
 '''
 
 import pygame
@@ -53,16 +58,15 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:
                     canvas.set_alg(Dfs())
+                    canvas.set_alg_prompt("Depth-First Search Algorithm, unweighted and does not guearantee shortest path")
                 elif event.key == pygame.K_2:
                     canvas.set_alg(Dijkstra(canvas))
-                    #alg = Dijkstra(canvas)
+                    canvas.set_alg_prompt("Dijkstra Weighted Algorithm, guarantees shortest path")
                 elif event.key == pygame.K_SPACE and canvas.get_target() and canvas.get_start():
                     canvas.run_alg(game_window, canvas)
                     canvas.draw_shortest_path(game_window)
                 elif event.key == pygame.K_r:
-                    canvas.reset_canvas()
-                    canvas.set_alg(Dfs())
-                
+                    canvas = Canvas()
 
 
         canvas.draw_canvas(game_window)

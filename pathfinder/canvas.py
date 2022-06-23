@@ -8,7 +8,7 @@
 '''
 
 import pygame
-from pathfinder.constants import BLACK, DARK_PURPLE, HEADER, INDENT, PURPLE, SKYBLUE, COLS, ROWS, TILE_SIZE, CANVAS_XY, WHITE, WIDTH
+from pathfinder.constants import BLACK, DARK_PURPLE, HEADER, INDENT, PURPLE, SKYBLUE, COLS, ROWS, TILE_SIZE, CANVAS_XY, WHITE, WIDTH, PROMPT_CORAL
 from .tile import Tile
 
 
@@ -18,6 +18,10 @@ class Canvas:
         self.target_tile = None
         self.canvas = self.initialize_canvas()
         self.alg = None
+        self.alg_prompt = "Press 1 or 2 to pick an algorithm and then"    #TOP LEFT PROMPT
+        self.alg_prompt_col = PROMPT_CORAL
+        self.status_prompt = "Press SPACE to run it."    #TOP RIGHT PROMPT
+        self.status_col = PROMPT_CORAL
 
     def initialize_canvas(self) -> list:
         canvas = []
@@ -53,11 +57,20 @@ class Canvas:
     def set_alg(self, alg):
         self.alg = alg
 
+    def set_alg_prompt(self, str):
+        self.alg_prompt = str
+        self.alg_prompt_col = HEADER
+
     def run_alg(self, game_window, canvas):
         self.alg.run(game_window, canvas)
 
-    def reset_canvas(self):
+    '''def reset_canvas(self):
         self.canvas = self.initialize_canvas()
+        self.alg_prompt = "Use numbers [1-2] on your keyboard to choose an algorithm and then"    #TOP LEFT PROMPT
+        self.alg_prompt_col = PROMPT_CORAL
+        self.status_prompt = "Press SPACE to run it."    #TOP RIGHT PROMPT
+        self.status_col = PROMPT_CORAL'''
+
 
     def get_start(self):
         return self.start_tile
@@ -74,9 +87,13 @@ class Canvas:
         if not self.get_start():
             self.start_tile = tile
             tile.make_start()
+            if not self.get_target():
+                self.status_prompt = "Pick target node."
+
         elif not self.get_target():
             self.target_tile = tile
             tile.make_target()
+            self.status_prompt = "Press SPACE to run it."
         elif not tile.is_target() and not tile.is_start():
             tile.make_wall()
     
@@ -84,8 +101,13 @@ class Canvas:
         tile = self.canvas[row][col]
         if tile.is_start():
             self.start_tile = None
+            self.status_prompt = "Pick start node."
         elif tile.is_target():
             self.target_tile = None
+            if not self.get_start():
+                self.status_prompt = "Pick start node."
+            else:
+                self.status_prompt = "Pick target node."
         tile.set_unvisited()
 
 
@@ -135,7 +157,22 @@ class Canvas:
         font_header = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 30)
         txt = "Pathfinding Algorithms Visualizer"
         txt_surface = font_header.render(txt, True, WHITE) 
-        game_window.blit(txt_surface, (WIDTH/2-len(txt)//2*16, 22))
+        game_window.blit(txt_surface, (WIDTH//2-len(txt)//2*16, 22))
+
+        
+        font_prompt = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 15)
+        
+        tot_len = len(self.alg_prompt+" "+ self.status_prompt)
+        txt = self.alg_prompt.upper()
+        #txt = self.alg_prompt+" "+ self.status_prompt.upper()
+        txt_surface = font_prompt.render(txt, True, self.alg_prompt_col) 
+        game_window.blit(txt_surface, (WIDTH//2-tot_len//2*9, 92))
+
+        
+        txt = self.status_prompt.upper()
+        pos = tot_len//2 - len(txt) #position where this sign should be
+        txt_surface = font_prompt.render(txt, True, self.status_col) 
+        game_window.blit(txt_surface, (WIDTH//2+pos*9+8, 92))
 
 
     def draw_canvas(self, game_window):

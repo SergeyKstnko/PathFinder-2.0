@@ -5,9 +5,6 @@ This application is my second take on Pathfinding Algorithm Visualizer. It visua
 
 
 
-
-
-
 **Tech characteristics:**
 * Implemented game using OOP design principles:
     * Encapsulation

@@ -1,4 +1,4 @@
-# Pathfind Algorithm Visualizer
+# Pathfinding Algorithm Visualizer
 This application is my second take on Pathfinding Algorithm Visualizer. It visualizes and demonstrates internal work of various path finding algorithms.
 
 ![Dijkstra Found](https://user-images.githubusercontent.com/7826894/175387101-363a1058-b923-441c-8df1-d1d5a6b2d23f.png)
@@ -8,13 +8,13 @@ This application is my second take on Pathfinding Algorithm Visualizer. It visua
 **Tech characteristics:**
 * Implemented game using OOP design principles:
     * Encapsulation
-    * Formal Iterfaces
+    * Formal Interface
 * Implemented two algorithms:
     * Depth-first Search Algorithm - unweighted, does not guarantee shortest path
     * Dijkstra Algorithm - weighted, does guarantee shortest path
 * Easy extensibility
 * GUI via Pygame
-* Fonts work on different opearation systems
+* Fonts work on different operation systems
 
 **GUI Interface:**
 - You can select and deselect start and target nodes

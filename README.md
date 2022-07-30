@@ -10,8 +10,10 @@ This application is my second take on Pathfinding Algorithm Visualizer. It visua
     * Encapsulation
     * Formal Interface
 * Implemented two algorithms:
-    * Depth-first Search Algorithm - unweighted, does not guarantee shortest path
     * Dijkstra Algorithm - weighted, does guarantee shortest path
+    * Breadth-first Search Algorithm - unweighted and does guarantee shortest path
+    * Depth-first Search Algorithm - unweighted, does not guarantee shortest path
+    
 * Easy extensibility
 * GUI via Pygame
 * Fonts work on different operation systems

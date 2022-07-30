@@ -6,7 +6,6 @@ from re import L
 from .FormalAlgorithmInterface import FormalAlgorithmInterface
 from collections import deque
 from .constants import COLS, ROWS
-import pygame
 
 class Bfs(FormalAlgorithmInterface):
     def __init__(self):

@@ -18,6 +18,7 @@ from pathfinder.constants import COLS, HEADER_HEIGHT, INDENT, ROWS, TILE_SIZE, W
 from pathfinder.canvas import Canvas
 from pathfinder.dfs import Dfs
 from pathfinder.dijkstra import Dijkstra
+from pathfinder.bfs import Bfs
 
 
 FPS = 60
@@ -60,9 +61,12 @@ def main():
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:
-                    canvas.set_alg(Dfs())
-                elif event.key == pygame.K_2:
                     canvas.set_alg(Dijkstra())
+                elif event.key == pygame.K_2:
+                    canvas.set_alg(Dfs())
+                elif event.key == pygame.K_3:
+                    canvas.set_alg(Bfs())
+                
                 elif event.key == pygame.K_r:
                     canvas = Canvas()
                 elif event.key == pygame.K_SPACE and canvas.get_target() and canvas.get_start():

@@ -227,7 +227,7 @@ class Canvas:
         game_window.blit(txt_surface, (legend_x+725, legend_y-2))
 
         font_legend = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 14)
-        txt = "You can press numbers on your keyboard to choose algorithms: 1. Depth-first Search Algorithm 2. Dijkstra Algorithm."
+        txt = "You can press numbers on your keyboard to choose algorithms: 1.Dijkstra 2.Depth-first Search or 3.Breadth-first Search Algorithms."
         txt_surface = font_legend.render(txt, True, HEADER) 
         game_window.blit(txt_surface, (legend_x+7, legend_y+30))
 
@@ -245,6 +245,7 @@ class Canvas:
         self.draw_grid(game_window)
         self.draw_header(game_window)
         self.draw_legend(game_window)
-
+        
         pygame.display.update()
+        
         

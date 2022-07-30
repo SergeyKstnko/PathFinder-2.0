@@ -2,10 +2,8 @@
 bfs.py implements Breadth-First Search Algorithm
 '''
 
-from re import L
 from .FormalAlgorithmInterface import FormalAlgorithmInterface
 from collections import deque
-from .constants import COLS, ROWS
 
 class Bfs(FormalAlgorithmInterface):
     def __init__(self):
@@ -19,22 +17,6 @@ class Bfs(FormalAlgorithmInterface):
 
     def get_alg_prompt(self):
         return self.alg_prompt
-
-
-    def add_neighbours(self, curr):
-        coord = [[1,0], [-1.0],[0,1],[0,-1]]
-
-        for row_c, col_c in coord:
-            row, col = curr.get_row_col()
-            new_row, new_col = row+row_c, col+col_c
-            if new_row in range(ROWS) and new_col in range(COLS) and not curr.is_wall():
-                neigh = self.grid[new_row][new_col]
-                neigh.set_parent=curr
-
-                if not curr.is_target():
-                    curr.set_discovered()
-                q.append(neigh)
-
 
     def bfs(self, row, col, game_window):
         q = deque()
